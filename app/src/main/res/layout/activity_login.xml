@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_01"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:background="@drawable/login_background">
+
+        <ImageView
+            android:layout_width="@dimen/dp90"
+            android:layout_height="@dimen/dp90"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dp45"
+            android:src="@mipmap/ic_head" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_01"
+        android:background="@mipmap/ic_login_wave" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_01"
+        android:layout_marginTop="@dimen/dp30"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp45"
+        android:paddingRight="@dimen/dp45">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_login_edit">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp10"
+                android:src="@mipmap/ic_account" />
+
+            <EditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:textCursorDrawable="@drawable/cursor"
+                android:hint="@string/put_phone_number"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/dp8"
+                android:paddingEnd="@dimen/dp8"
+                android:paddingStart="@dimen/dp30"
+                android:paddingTop="@dimen/dp8"
+                android:textColor="@color/text_color_999999"
+                android:textColorHint="@color/text_color_cccccc"
+                android:textSize="@dimen/dp14"
+                tools:ignore="TextFields" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:background="@drawable/shape_login_edit">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp10"
+                android:src="@mipmap/ic_password" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/put_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textCursorDrawable="@drawable/cursor"
+                android:paddingBottom="@dimen/dp8"
+                android:paddingEnd="@dimen/dp8"
+                android:paddingStart="@dimen/dp30"
+                android:paddingTop="@dimen/dp8"
+                android:textColor="@color/text_color_999999"
+                android:textColorHint="@color/text_color_cccccc"
+                android:textSize="@dimen/dp14"
+                tools:ignore="TextFields" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:background="@drawable/login_button"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/dp10"
+            android:text="@string/login"
+            android:textColor="@color/text_color_333333"
+            android:textSize="@dimen/dp15" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp15"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp1"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp8"
+                android:layout_toStartOf="@+id/tv_reset_password"
+                android:background="#FDE33B" />
+
+            <TextView
+                android:id="@+id/tv_reset_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:text="@string/reset_password"
+                android:textColor="#FDE33B"
+                android:textSize="@dimen/dp14" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp1"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp8"
+                android:layout_toEndOf="@+id/tv_reset_password"
+                android:background="#FDE33B" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/F7F7F7"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/item_head_title" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_reward"
+        android:textColor="@color/text989898"
+        android:textSize="@dimen/dp18"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp150"
+        android:layout_below="@+id/include"
+        android:background="@drawable/login_background">
+
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_marginTop="@dimen/dp9"
+            android:drawableEnd="@mipmap/ic_history_down"
+            android:paddingBottom="@dimen/dp10"
+            android:paddingEnd="@dimen/dp10"
+            android:paddingTop="@dimen/dp10"
+            android:textColor="@color/text_color_333333"
+            android:textSize="@dimen/dp15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_marginTop="@dimen/dp15"
+            android:text="@string/all_reward"
+            android:textColor="@color/text_color_333333"
+            android:textSize="@dimen/dp15" />
+
+        <LinearLayout
+            android:id="@+id/ll_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="@color/text_color_333333"
+                android:textSize="@dimen/dp18" />
+
+            <TextView
+                android:id="@+id/tv_all_reward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textColor="@color/text_color_333333"
+                android:textSize="@dimen/dp30" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_below="@+id/ll_01"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日￥"
+                android:textColor="@color/text_color_333333"
+                android:textSize="@dimen/dp16" />
+
+            <TextView
+                android:id="@+id/tv_today_reward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textColor="@color/text_color_333333"
+                android:textSize="@dimen/dp17" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@+id/lv_reward"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp24"
+            android:divider="@color/white"
+            android:dividerHeight="@dimen/dp1"
+            android:scrollbars="none" />
+
+        <include layout="@layout/public_shadow" />
+    </LinearLayout>
+</RelativeLayout>

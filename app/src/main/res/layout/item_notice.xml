@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp5"
+        android:orientation="vertical"
+        android:padding="@dimen/dp15">
+
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:00"
+            android:textSize="@dimen/dp15" />
+
+        <ImageView
+            android:id="@+id/iv_is_read"
+            android:layout_width="@dimen/dp9"
+            android:layout_height="@dimen/dp9"
+            android:layout_marginStart="@dimen/dp2"
+            android:layout_toEndOf="@+id/tv_time"
+            android:background="@drawable/not_read_circle" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_time"
+            android:layout_marginEnd="@dimen/dp25"
+            android:layout_marginTop="@dimen/dp5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="通知: "
+                android:textSize="@dimen/dp15" />
+
+            <TextView
+                android:id="@+id/tv_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="@dimen/dp15" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_right_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_right_arrow" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

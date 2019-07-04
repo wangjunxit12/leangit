@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:background="#ffffff"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <RadioGroup
+            android:id="@+id/rg_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_shift_sign"
+                style="@style/rb_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_sign"
+                android:checked="true"
+                android:paddingBottom="@dimen/dp8"
+                android:paddingEnd="@dimen/dp40"
+                android:paddingStart="@dimen/dp40"
+                android:paddingTop="@dimen/dp8"
+                android:text="@string/shift_sign"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:id="@+id/rb_station_sign"
+                style="@style/rb_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_sign_right"
+                android:checked="false"
+                android:paddingBottom="@dimen/dp8"
+                android:paddingEnd="@dimen/dp40"
+                android:paddingStart="@dimen/dp40"
+                android:paddingTop="@dimen/dp8"
+                android:text="@string/spot_sign"
+                android:textColor="@color/text989898" />
+        </RadioGroup>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/rl_01"
+        layout="@layout/item_head_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_01">
+
+        <ListView
+            android:id="@+id/lv_station"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dp18"
+            android:layout_marginTop="@dimen/dp0.5"
+            android:divider="@null"
+            android:scrollbars="none" />
+
+        <TextView
+            android:id="@+id/dialog"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_small_round_background"
+            android:gravity="center"
+            android:textColor="#333333"
+            android:textSize="30.0dip"
+            android:visibility="invisible" />
+
+        <com.meibanlu.driver.tool.address.SideBar
+            android:id="@+id/sidrbar"
+            android:layout_width="@dimen/dp18"
+            android:layout_height="fill_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right|center" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

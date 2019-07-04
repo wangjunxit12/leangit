@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/ll_01"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp98"
+        android:background="@drawable/shape_task">
+
+        <ImageView
+            android:id="@+id/iv_roll"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10"
+            android:src="@mipmap/ic_finish_roll" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_roll"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp15"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_line_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上午8:00"
+                    android:textColor="@color/text_color_cccccc"
+                    android:textSize="@dimen/dp14" />
+
+                <TextView
+                    android:id="@+id/tv_person"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp28"
+                    android:layout_toEndOf="@+id/tv_line_time"
+                    android:text="@string/passenger_number"
+                    android:textColor="@color/text_color_cccccc"
+                    android:textSize="@dimen/dp13" />
+
+                <TextView
+                    android:id="@+id/tv_seats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tv_person"
+                    android:text="0"
+                    android:textColor="@color/text_color_cccccc"
+                    android:textSize="@dimen/dp13" />
+
+
+                <View
+                    android:layout_width="@dimen/dp7.5"
+                    android:layout_height="@dimen/dp7.5"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp2"
+                    android:layout_toStartOf="@+id/tv_is_finish"
+                    android:background="@drawable/shape_circle_gray" />
+
+                <TextView
+                    android:id="@+id/tv_is_finish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/dp15"
+                    android:text="@string/have_finish"
+                    android:textColor="@color/text_color_cccccc"
+                    android:textSize="@dimen/dp13" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8">
+
+                <TextView
+                    android:id="@+id/tv_start_station"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="五彩池"
+                    android:textColor="@color/text_color_cccccc"
+                    android:textSize="@dimen/dp16" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp2"
+                    android:layout_marginStart="@dimen/dp2"
+                    android:layout_toEndOf="@+id/tv_start_station"
+                    android:background="@color/text_color_cccccc" />
+
+                <TextView
+                    android:id="@+id/tv_end_station"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/line"
+                    android:text="熊猫海"
+                    android:textColor="@color/text_color_cccccc"
+                    android:textSize="@dimen/dp16" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp5"
+        android:layout_below="@+id/ll_01"
+        android:layout_marginEnd="@dimen/dp6"
+        android:layout_marginStart="@dimen/dp6"
+        android:background="@mipmap/ic_shadow" />
+</RelativeLayout>

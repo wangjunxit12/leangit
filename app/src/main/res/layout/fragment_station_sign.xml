@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/often_station"
+        android:textSize="@dimen/dp15" />
+
+    <GridView
+        android:id="@+id/gv_often_station"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp20"
+        android:numColumns="3" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp30"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp0.5"
+            android:layout_gravity="center_vertical"
+            android:background="@color/text_color_333333" />
+
+        <TextView
+            android:id="@+id/tv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_effect"
+            android:padding="@dimen/dp8"
+            android:text="更多"
+            android:textSize="@dimen/dp15" />
+
+        <View
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp0.5"
+            android:layout_gravity="center_vertical"
+            android:background="@color/text_color_333333" />
+
+    </LinearLayout>
+
+</LinearLayout>

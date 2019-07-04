@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/F7F7F7"
+    android:orientation="vertical">
+
+    <include layout="@layout/item_head_title" />
+
+    <RelativeLayout
+        android:id="@+id/rl_all_car"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp55">
+
+        <TextView
+            android:id="@+id/tv_choose_car"
+            style="@style/text_style2"
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_marginTop="@dimen/dp25"
+            android:text="@string/all_car"
+            android:textSize="@dimen/dp15" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_choose_car"
+            android:layout_marginBottom="@dimen/dp2"
+            android:layout_toEndOf="@+id/tv_choose_car"
+            android:src="@mipmap/ic_triangle" />
+    </RelativeLayout>
+
+    <com.meibanlu.driver.view.LoadMoreView
+        android:id="@+id/lv_all_mileage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" />
+
+
+</LinearLayout>

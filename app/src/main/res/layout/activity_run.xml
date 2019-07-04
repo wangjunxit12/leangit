@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp20"
+        android:text="btn1"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_return"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp25"
+        android:padding="@dimen/dp8"
+        android:src="@mipmap/ic_driver_return" />
+
+
+    <ImageView
+        android:id="@+id/iv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_01"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/dp20"
+        android:src="@mipmap/ic_map_location" />
+
+    <LinearLayout
+        android:id="@+id/ll_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/dp3"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_zoom_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_zoom_out" />
+
+        <ImageView
+            android:id="@+id/iv_zoom_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_zoom_in" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp25"
+        android:layout_marginEnd="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp20"
+        android:background="@drawable/shape_map_round_background"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/dp14"
+                android:layout_marginTop="@dimen/dp14"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="0"
+                    android:textColor="@color/text_color_333333"
+                    android:textSize="@dimen/dp15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="起始距离"
+                    android:textColor="@color/text_color_333333"
+                    android:textSize="@dimen/dp14" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/dp0.5"
+                android:layout_height="match_parent"
+                android:background="@color/F7F7F7" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/dp14"
+                android:layout_marginTop="@dimen/dp14"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_run_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="0"
+                    android:textColor="@color/text_color_333333"
+                    android:textSize="@dimen/dp15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="预计时间"
+                    android:textColor="@color/text_color_333333"
+                    android:textSize="@dimen/dp14" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0.5"
+            android:background="@color/F7F7F7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp20">
+
+            <TextView
+                android:id="@+id/tv_start_station"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp8"
+                android:layout_toStartOf="@+id/ll_02"
+                android:paddingTop="@dimen/dp10"
+                android:text="武侯祠"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/dp15" />
+
+            <LinearLayout
+                android:id="@+id/ll_02"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/dp14" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-12dp"
+                    android:src="@mipmap/ic_arrow" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_end_station"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp8"
+                android:layout_toEndOf="@+id/ll_02"
+                android:paddingTop="@dimen/dp10"
+                android:text="武侯祠"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/dp15" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_reStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/iv_end_sign"
+        android:layout_marginBottom="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp20"
+        android:drawableTop="@mipmap/restart"
+        android:textStyle="bold"
+        android:text="重启定位"
+        />
+
+    <ImageView
+        android:id="@+id/iv_end_sign"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        android:layout_above="@+id/ll_03"
+        android:layout_marginBottom="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp25"
+        android:src="@drawable/button_end_sign" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp10"
+        android:layout_below="@+id/ll_03"
+        android:background="@mipmap/ic_shadow" />
+</RelativeLayout>

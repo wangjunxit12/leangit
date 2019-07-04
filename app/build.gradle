@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '26.0.2'
+    defaultConfig {
+        applicationId "com.meibanlu.driver"
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 28
+        versionName "1.2.8"
+
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+        }
+    }
+    signingConfigs {
+        debug {
+            // 签名
+            storeFile file("meibanlukey.jks")
+            storePassword "xiaomeibanluliuhongquan"
+            keyAlias "meibanlu"
+            keyPassword "xiaomeibanluliuhongquan"
+        }
+    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:27.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
+    testCompile 'junit:junit:4.12'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile files('libs/jcore-android-1.1.7.jar')
+    compile files('libs/jpush-android-3.0.9.jar')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'cat.ereza:customactivityoncrash:1.5.0'
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
+    //    compile 'com.github.bumptech.glide:okhttp3-integration:4.6.1@aar'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.3'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+    //XML解析
+    compile('com.squareup.retrofit2:converter-simplexml:2.3.0') {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
+    compile 'com.android.support:multidex:1.0.3'
+    implementation files('libs/AMap3DMap_6.0.0_AMapSearch_5.7.0_AMapLocation_3.8.0_20180211.jar')
+}

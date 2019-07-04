@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <!-- 定义当button 处于pressed 状态时的形态。-->
+        <shape>
+            <solid android:color="#d5d5d5" />
+            <stroke
+                android:width="0.1dp"
+                android:color="#d5d5d5" /> <!-- 定义描边的宽度和描边的颜色值 -->
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="false">
+        <shape>
+            <stroke
+                android:width="0.1dp"
+                android:color="#ffffff" /> <!-- 定义描边的宽度和描边的颜色值 -->
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+</selector>

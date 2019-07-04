@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_click_effect"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_01"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50">
+
+        <RelativeLayout
+            android:id="@+id/rl_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/iv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/photo"
+                android:padding="@dimen/dp10"
+                android:src="@mipmap/ic_save_run" />
+
+            <TextView
+                android:id="@+id/tv_not_read_number"
+                android:layout_width="@dimen/dp12"
+                android:layout_height="@dimen/dp12"
+                android:layout_alignEnd="@+id/iv_type"
+                android:layout_marginStart="@dimen/dp2"
+                android:layout_marginTop="@dimen/dp1"
+                android:background="@drawable/not_read_circle"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp8"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_toEndOf="@+id/rl_02"
+            android:textColor="@color/text_color_333333"
+            android:textSize="@dimen/dp16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@mipmap/ic_right_arrow" />
+    </RelativeLayout>
+
+    <include layout="@layout/public_line" />
+
+</LinearLayout>
+

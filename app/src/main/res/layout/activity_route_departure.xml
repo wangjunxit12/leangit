@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/item_head_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_route_departure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="@color/F7F7F7"
+            android:dividerHeight="@dimen/dp10"
+            android:scrollbars="none"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="@string/no_departure"
+            android:textColor="@color/text_color_999999"
+            android:textSize="@dimen/dp19" />
+    </RelativeLayout>
+
+
+</LinearLayout>

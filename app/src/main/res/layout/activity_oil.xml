@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/F7F7F7"
+    android:orientation="vertical">
+
+    <include layout="@layout/item_head_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/ll_last"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp15"
+                android:layout_marginStart="@dimen/dp15"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/text_style1"
+                    android:layout_marginTop="@dimen/dp24"
+                    android:text="@string/last_mileage" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/shape_small_round_background"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/dp18"
+                    android:paddingEnd="@dimen/dp15"
+                    android:paddingStart="@dimen/dp15"
+                    android:paddingTop="@dimen/dp18">
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        style="@style/text_style1"
+                        android:textSize="@dimen/dp12" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15">
+
+                        <TextView
+                            android:id="@+id/tv_car_number"
+                            style="@style/text_style2" />
+
+                        <TextView
+                            android:id="@+id/tv_mileage"
+                            style="@style/text_style2"
+                            android:layout_marginStart="@dimen/dp40" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@drawable/shape_small_round_background"
+                android:orientation="vertical"
+                android:padding="@dimen/dp15">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50">
+
+                    <TextView
+                        android:id="@+id/car_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/car_number"
+                        android:textColor="@color/text_color_999999"
+                        android:textSize="@dimen/dp16" />
+
+                    <EditText
+                        android:id="@+id/et_car"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp90"
+                        android:background="@color/white"
+                        android:hint="@string/put_car_number"
+                        android:inputType="text"
+                        android:textColor="@color/text_color_333333"
+                        android:textColorHint="@color/text_color_cccccc"
+                        android:textSize="@dimen/dp16" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50">
+
+                    <TextView
+                        android:id="@+id/oil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/oil"
+                        android:textColor="@color/text_color_999999"
+                        android:textSize="@dimen/dp16" />
+
+                    <EditText
+                        android:id="@+id/et_oil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp90"
+                        android:background="@color/white"
+                        android:hint="@string/put_oil"
+                        android:inputType="number"
+                        android:textColor="@color/text_color_333333"
+                        android:textColorHint="@color/text_color_cccccc"
+                        android:textSize="@dimen/dp16" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/line" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="加油记录号"
+                        android:textColor="@color/text_color_999999"
+                        android:textSize="@dimen/dp16" />
+
+                    <EditText
+                        android:id="@+id/oil_record"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp90"
+                        android:background="@color/white"
+                        android:hint="加油记录号"
+                        android:inputType="number"
+                        android:textColor="@color/text_color_333333"
+                        android:textColorHint="@color/text_color_cccccc"
+                        android:textSize="@dimen/dp16" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="加油量（L）"
+                        android:textColor="@color/text_color_999999"
+                        android:textSize="@dimen/dp16" />
+
+                    <EditText
+                        android:id="@+id/oil_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp90"
+                        android:background="@color/white"
+                        android:hint="加油量"
+                        android:inputType="number"
+                        android:textColor="@color/text_color_333333"
+                        android:textColorHint="@color/text_color_cccccc"
+                        android:textSize="@dimen/dp16" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="加油金额"
+                        android:textColor="@color/text_color_999999"
+                        android:textSize="@dimen/dp16" />
+
+                    <EditText
+                        android:id="@+id/oil_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp90"
+                        android:background="@color/white"
+                        android:hint="加油金额"
+                        android:inputType="number"
+                        android:textColor="@color/text_color_333333"
+                        android:textColorHint="@color/text_color_cccccc"
+                        android:textSize="@dimen/dp16" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50">
+
+                    <TextView
+                        android:id="@+id/tvperson"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="经手人"
+                        android:textColor="@color/text_color_999999"
+                        android:textSize="@dimen/dp16" />
+
+                    <EditText
+                        android:id="@+id/person"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp90"
+                        android:background="@color/white"
+                        android:hint="添加经办人"
+                        android:textColor="@color/text_color_333333"
+                        android:textColorHint="@color/text_color_cccccc"
+                        android:textSize="@dimen/dp16" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="备注"
+                        android:textColor="@color/text_color_999999"
+                        android:textSize="@dimen/dp16" />
+
+                    <EditText
+                        android:id="@+id/remark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp90"
+
+                        android:hint="添加备注"
+                        android:background="@drawable/xx"
+                        android:textColor="@color/text_color_333333"
+                        android:textColorHint="@color/text_color_cccccc"
+                        android:textSize="@dimen/dp16" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/line" />
+
+                <TextView
+                    android:id="@+id/tv_show_record"
+                    style="@style/text_style3"
+                    android:layout_gravity="end"
+                    android:padding="@dimen/dp9"
+                    android:text="查看录入里程记录"
+                    android:textSize="@dimen/dp15" />
+
+                <TextView
+                    android:id="@+id/tv_sure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp25"
+                    android:layout_marginStart="@dimen/dp25"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:background="@drawable/shape_sure"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="@dimen/dp10"
+                    android:text="@string/sure"
+                    android:textColor="@color/text_color_333333"
+                    android:textSize="@dimen/dp15" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

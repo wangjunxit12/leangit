@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.meibanlu.driver.tool.homepage.BottomControlPanel xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="#CAD3E3"
+    android:paddingEnd="@dimen/dp16"
+    android:paddingStart="@dimen/dp16">
+
+    <com.meibanlu.driver.tool.homepage.ImageText
+        android:id="@+id/btn_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:padding="@dimen/dp10" />
+
+    <com.meibanlu.driver.tool.homepage.ImageText
+        android:id="@+id/btn_driving_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/dp10" />
+
+    <com.meibanlu.driver.tool.homepage.ImageText
+        android:id="@+id/btn_personal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:padding="@dimen/dp10" />
+
+</com.meibanlu.driver.tool.homepage.BottomControlPanel>
