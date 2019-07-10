@@ -5,11 +5,11 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.meibanlu.driver"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 27
-        versionCode 28
-        versionName "1.2.8"
-
+        versionCode 29
+        versionName "1.2.9"
+        multiDexEnabled true
     }
     sourceSets {
         main {
@@ -73,5 +73,6 @@ dependencies {
         exclude group: 'stax', module: 'stax'
     }
     compile 'com.android.support:multidex:1.0.3'
+    implementation project(':zxing-lib')
     implementation files('libs/AMap3DMap_6.0.0_AMapSearch_5.7.0_AMapLocation_3.8.0_20180211.jar')
 }

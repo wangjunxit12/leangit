@@ -125,11 +125,12 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/ll_other_station"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp5"
+                    android:padding="@dimen/dp5"
                     android:orientation="horizontal">
 
                     <TextView
@@ -138,6 +139,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/other_station"
                         android:textColor="@color/black"
+                        android:visibility="invisible"
                         android:textSize="14sp" />
 
                     <TextView
@@ -147,11 +149,23 @@
                         android:layout_marginStart="@dimen/dp10"
                         android:text="春熙路春熙春熙路春熙春熙路春熙"
                         android:maxLength="15"
+                        android:visibility="invisible"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/scan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="验票"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="end"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:background="@drawable/shape_get_code"
+                        />
 
-
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
 
             <RelativeLayout
@@ -221,6 +235,32 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/rl_out"
+        android:visibility="visible"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp5"
+        android:padding="@dimen/dp5"
+        >
+        <TextView
+            android:text="温馨提示："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_red_light"
+            />
+        <TextView
+            android:text="@string/circle_line_tips"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_red_light"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
     <View
         android:id="@+id/view_shadow"
         android:layout_width="match_parent"

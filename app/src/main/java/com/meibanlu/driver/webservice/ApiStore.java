@@ -84,4 +84,5 @@ public interface ApiStore {
     @POST("ITYWJAPP")
     Observable<ResponseEnvelope> getData(@Body RequestEnvelope requestEnvelope,@Header("SOAPAction") String soap);
 
+
 }

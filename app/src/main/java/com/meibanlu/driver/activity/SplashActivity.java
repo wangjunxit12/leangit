@@ -27,6 +27,7 @@ public class SplashActivity extends BaseActivity {
      * 需要进行检测的权限数组
      */
     protected String[] needPermissions = {
+            Manifest.permission.CAMERA,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,

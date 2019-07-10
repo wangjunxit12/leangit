@@ -20,7 +20,7 @@ public class StationMapper implements Mapper<List<LineStation>,ResponseEnvelope>
     public  List<LineStation> transform(ResponseEnvelope responseEnvelope) {
         List<LineStation> list=null;
         if(responseEnvelope.body!=null) {
-             String data=responseEnvelope.body.siteResponse.model.value;
+             String data=responseEnvelope.body.circleLineResponse.model.value;
             Log.e("StationMapper ","data： "+data);
             Document document = null;
             list=new ArrayList<>();
@@ -36,22 +36,22 @@ public class StationMapper implements Mapper<List<LineStation>,ResponseEnvelope>
                             texts=text.split(",");
                         }
                         LineStation schedule = new LineStation();
-                        schedule.setId(Integer.valueOf(texts[2]));
-                        schedule.setName(texts[6]);
-                        schedule.setShortName(texts[7]);
+                        schedule.setId(Integer.valueOf(texts[6]));
+                        schedule.setName(texts[15]);
+//                        schedule.setShortName(texts[7]);
                         if(texts.length>9){
-                            schedule.setElapsedTime(texts[3]);
-                            schedule.setDistance(texts[4]);
-                            schedule.setAreaRadius(Float.valueOf(texts[10]));
-                            if(texts[9].contains(";")){
-                                String [] textss=texts[9].split(";");
+//                            schedule.setElapsedTime(texts[3]);
+//                            schedule.setDistance(texts[4]);
+                            schedule.setAreaRadius(Float.valueOf(texts[18]));
+                            if(texts[16].contains(";")){
+                                String [] textss=texts[16].split(";");
                                 schedule.setLongitude(Float.valueOf(textss[0]));
                                 schedule.setLatitude(Float.valueOf(textss[1]));
                             }else {
                                 schedule.setLongitude(Float.valueOf("00"));
                                 schedule.setLatitude(Float.valueOf("00"));
                             }
-                            schedule.setLngLat(texts[9]);
+                            schedule.setLngLat(texts[16]);
                         }
 
                         list.add(schedule);

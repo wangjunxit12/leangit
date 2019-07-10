@@ -92,6 +92,7 @@ public class RouteDepartureMapActivity extends BaseActivity implements AMap.OnMa
         String tripLineFile = getIntent().getStringExtra("tripLineFile");
         long longDepartTime = getIntent().getLongExtra("departTime", 0);
         long longArriveTime = getIntent().getLongExtra("arriveTime", 0);
+
         if (longDepartTime != 0) {
             tvStartTime.setText(TimeTool.stampToDate(longDepartTime, "HH:mm"));
         }

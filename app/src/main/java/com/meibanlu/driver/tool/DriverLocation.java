@@ -65,7 +65,7 @@ public class DriverLocation implements AMapLocationListener {
                     aMapLocation.getLocationType()==AMapLocation.LOCATION_TYPE_WIFI||
                     aMapLocation.getLocationType()==AMapLocation.LOCATION_TYPE_SAME_REQ||
                     aMapLocation.getLocationType()==AMapLocation.LOCATION_TYPE_CELL)&&aMapLocation.getAccuracy()<500) {
-                RxBus.getInstance().post(new AMapLocation(aMapLocation));
+
                 //处理当前点是否有效
                 CommonData.aMapLocation = aMapLocation;
                 CommonData.judgePosition = new PositionVo(aMapLocation);

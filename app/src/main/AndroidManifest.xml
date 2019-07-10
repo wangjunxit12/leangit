@@ -7,15 +7,6 @@
     tools:ignore="GradleOverrides">
 
     <!--极光推送-->
-    <!-- Required -->
-    <permission
-        android:name="com.meibanlu.driver.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <!-- Required  一些系统要求的权限，如访问网络等-->
-    <uses-permission android:name="com.meibanlu.driver.permission.JPUSH_MESSAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-
 
     <!-- Optional for location -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
@@ -58,6 +49,7 @@
         android:icon="@mipmap/ic_app_logo"
         android:label="@string/app_name"
         android:persistent="true"
+        android:theme="@style/AppThemeNoTitleBar"
         android:priority="1000">
         <activity
             android:name=".activity.SplashActivity"
@@ -126,6 +118,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoTitleBar" />
         <activity
+            android:name=".activity.ScanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoTitleBar" />
+        <activity
             android:name=".activity.OnePixelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/OnePixelActivity" />
@@ -161,7 +157,7 @@
             android:name=".activity.RollingScopeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoTitleBar" />
-
+        <activity android:name="com.google.zxing.activity.CaptureActivity" />
         <receiver android:name=".broadcast.NetBroadcastReceiver">
             <intent-filter>
                 <action

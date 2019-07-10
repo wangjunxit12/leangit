@@ -131,7 +131,9 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener {
      * 注册按钮
      */
     protected void registerBtn(View... views) {
+
         for (View view : views) {
+            T.log(view.toString());
             view.setOnClickListener(this);
         }
     }

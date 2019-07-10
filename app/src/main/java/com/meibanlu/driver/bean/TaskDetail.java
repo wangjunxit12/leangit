@@ -38,6 +38,11 @@ public class TaskDetail implements Comparable<TaskDetail> {
 
     private String driverTel;
 
+    /**
+     * 是否是环线
+     */
+
+    private boolean isCircle;
 
 
     /**
@@ -114,6 +119,14 @@ public class TaskDetail implements Comparable<TaskDetail> {
         arriveTime = in.readLong();
     }
 
+
+    public boolean isCircle() {
+        return isCircle;
+    }
+
+    public void setCircle(boolean circle) {
+        isCircle = circle;
+    }
 
     public Integer getOccupiedSeats() {
         return occupiedSeats;

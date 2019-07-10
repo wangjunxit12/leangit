@@ -4,6 +4,7 @@
     <style name="AppThemeNoTitleBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here.黑色背景无actionBar -->
         <item name="colorPrimaryDark">#FFF36D</item>
+        <item name="colorPrimary">#FFF36D</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/white</item>
         <!--自定义AlertDialog-->

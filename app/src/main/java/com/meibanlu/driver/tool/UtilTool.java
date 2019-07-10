@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationQualityReport;
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
@@ -48,6 +49,7 @@ import com.meibanlu.driver.webservice.RetrofitGenerator;
 import com.meibanlu.driver.webservice.mappers.ScheduleMapper;
 import com.meibanlu.driver.webservice.mappers.StationMapper;
 import com.meibanlu.driver.webservice.requeset.CheckUserRequest;
+import com.meibanlu.driver.webservice.requeset.CircleLineRequest;
 import com.meibanlu.driver.webservice.requeset.Header;
 import com.meibanlu.driver.webservice.requeset.LinesRequest;
 import com.meibanlu.driver.webservice.requeset.RequestBody;
@@ -792,9 +794,11 @@ public class UtilTool implements OnTimerListener{
                     @Override
                     public void accept(List<TaskDetail> schedules) throws Exception {
                         if(schedules!=null&&schedules.size()>0){
+                            Log.e("sss",""+schedules.size());
                             TodayTaskBean taskBean=new TodayTaskBean();
                             taskBean.setTrips(schedules);
                             initTodayTaskAdapter(taskBean);
+//                            checkCircle(schedules);
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -913,4 +917,41 @@ public class UtilTool implements OnTimerListener{
         return  newList;
     }
 
+    /**获取环线线路的途径站点
+     * @param detail 当前任务
+     */
+    public void getBackupStations(final TaskDetail detail){
+        RequestEnvelope envelope=new RequestEnvelope();
+        RequestBody body=new RequestBody();
+        CircleLineRequest request=new CircleLineRequest();
+        Header header=new Header();
+        request.setLineId(String.valueOf(detail.getBusId()));
+        body.circleLineRequest=request;
+        envelope.header=header;
+        envelope.body=body;
+        RetrofitGenerator.getInstance().getApiStore().getData(envelope,"urn:TYWJAPPIntf-ITYWJAPP#huanxian")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseEnvelope>() {
+                    @Override
+                    public void accept(ResponseEnvelope responseEnvelope) throws Exception {
+                        List<LineStation> stations = new StationMapper().transform(responseEnvelope);
+                        if (stations.size() > 0) {
+                            CommonData.holderTrip.getTrip().setBackupStations(stations);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if(throwable.getMessage()!=null){
+                            Log.e("ERROR",throwable.getMessage());
+                        }
+                    }
+                });
+
+    }
+
+    public void sign(){
+
+    }
 }

@@ -2,6 +2,7 @@ package com.meibanlu.driver.activity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,8 +10,13 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -27,28 +33,45 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.PolylineOptions;
+import com.amap.api.maps.model.Text;
+import com.amap.api.maps.model.TextOptions;
 import com.amap.api.trace.TraceLocation;
 import com.amap.api.trace.TraceOverlay;
 import com.meibanlu.driver.R;
 import com.meibanlu.driver.base.BaseActivity;
+import com.meibanlu.driver.bean.LineStation;
 import com.meibanlu.driver.bean.TaskDetail;
 import com.meibanlu.driver.tool.CommonData;
+import com.meibanlu.driver.tool.Constants;
 import com.meibanlu.driver.tool.DriverLocation;
 import com.meibanlu.driver.tool.GpsTool;
 import com.meibanlu.driver.tool.MapUtil;
+import com.meibanlu.driver.tool.ScheduleTaskDaemon;
 import com.meibanlu.driver.tool.T;
 import com.meibanlu.driver.tool.TimeTool;
 import com.meibanlu.driver.tool.TraceTool;
 import com.meibanlu.driver.tool.UtilTool;
+import com.meibanlu.driver.tool.XMDialog;
 import com.meibanlu.driver.tool.web.SimpleCallBack;
 import com.meibanlu.driver.tool.web.WebInterface;
 import com.meibanlu.driver.tool.web.WebService;
+import com.meibanlu.driver.webservice.RetrofitGenerator;
+import com.meibanlu.driver.webservice.mappers.StationMapper;
+import com.meibanlu.driver.webservice.requeset.CircleLineRequest;
+import com.meibanlu.driver.webservice.requeset.Header;
+import com.meibanlu.driver.webservice.requeset.RequestBody;
+import com.meibanlu.driver.webservice.requeset.RequestEnvelope;
+import com.meibanlu.driver.webservice.response.ResponseEnvelope;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.meibanlu.driver.tool.CommonData.aMapLocation;
 import static com.meibanlu.driver.tool.CommonData.listTask;
@@ -68,6 +91,7 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
     private int errorCode;
     private ImageView ivEndSign;
     private String mapTripId;
+    private ListView listView;
     private OnLocationChangedListener mListener;
     private static RunMapActivity runMapActivity;
     /**
@@ -76,6 +100,7 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
     private boolean isDrawLine;
     private final int DRAW_LINE = 0x1;
     private List<Circle> circleOptionses = new ArrayList<>();
+    private List<LineStation> lineStations=new ArrayList<>();
     @SuppressLint("HandlerLeak")
     Handler mapHandler = new Handler() {
         @Override
@@ -107,6 +132,7 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
     }
 
     private void initView() {
+        listView= findViewById(R.id.listView);
         ImageView ivZoomIn = (ImageView) findViewById(R.id.iv_zoom_in);
         ImageView ivZoomOut = (ImageView) findViewById(R.id.iv_zoom_out);
         ImageView ivReturn = (ImageView) findViewById(R.id.iv_return);
@@ -128,7 +154,11 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
         TaskDetail item = getTaskDetail(clickId);
 
         ivEndSign.setEnabled(canSign);
-
+        if(item.isCircle()){
+            if(item.getBackupStations()==null||item.getBackupStations().size()==0){
+                 getBackupStations(item);
+            }
+        }
         if (!TextUtils.isEmpty(clickId) && item != null) {
             int departId = item.getDepartId();
             int arriveId = item.getArriveId();
@@ -138,10 +168,6 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
                 int distance = item.getDistance()/1000;
                 String elapsedTime = item.getArriveStation().getElapsedTime();
                 tvDistance.setText(distance + "km");
-//                if (!TextUtils.isEmpty(elapsedTime)) {
-//                    String runTime = TimeTool.minToHour(elapsedTime);
-//                    tvRunTime.setText(runTime);
-//                }
             }
             mapTripId = item.getId();
             TextView tvStartStation = (TextView) findViewById(R.id.tv_start_station);
@@ -150,12 +176,11 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
             tvStartStation.setText(item.getDepartStation().getName());
             tvEndStation.setText(item.getArriveStation().getName());
             tvStartTime.setText(item.getSchedule());
-//            getLineGps(departId, arriveId);
             if(item.getDepartStation()!=null){
                 String startLatlng = item.getDepartStation().getLngLat();
                 float startRadius = item.getDepartStation().getAreaRadius();
-
                 drawRange(startLatlng, startRadius);
+
             }
             if(item.getArriveStation()!=null){
                 String endLatlng = item.getArriveStation().getLngLat();
@@ -242,6 +267,28 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_stop)));
     }
 
+    private void addMarker(List<LineStation> stations){
+        int length=stations.size();
+        for(int i=0;i<length;i++){
+            LatLng lng= new LatLng(Double.valueOf(stations.get(i).getLngLat().split(";")[1]),
+                    Double.valueOf(stations.get(i).getLngLat().split(";")[0]));
+            aMap.addMarker(new MarkerOptions()
+                    .position(lng)
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.blue)));
+            TextOptions textOptions = new TextOptions();
+            textOptions.position(lng);
+            textOptions.text("途经点"+"\n"+stations.get(i).getName());
+            textOptions.fontSize(18);
+            textOptions.rotate(10);
+            textOptions.fontColor(Color.RED);
+            textOptions.backgroundColor(Color.TRANSPARENT);
+            textOptions.align(Text.ALIGN_CENTER_HORIZONTAL, Text.ALIGN_CENTER_VERTICAL);
+            textOptions.zIndex(1.f).typeface(Typeface.DEFAULT_BOLD);
+            aMap.addText(textOptions);
+            float radius = stations.get(i).getAreaRadius();
+            drawRange(stations.get(i).getLngLat(),radius);
+        }
+    }
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -417,9 +464,7 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
      */
     @Override
     public void onMapClick(LatLng latLng) {
-//        CommonData.aMapLocation.setLongitude(latLng.longitude);
-//        CommonData.aMapLocation.setLatitude(latLng.latitude);
-//        XmLocationTest.setXmLocation(CommonData.aMapLocation);
+
     }
 
     @Override
@@ -428,26 +473,6 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
         setLocation();//首次定位
     }
 
-
-
-//    public void getLineGps(int departId, int arriveId) {
-//        Map<String, Object> param = new HashMap<>();
-//        param.put("departId", departId);
-//        param.put("arriveId", arriveId);
-//        WebService.doRequest(WebService.GET, WebInterface.GET_LINE_GPS, param, new SimpleCallBack() {
-//            @Override
-//            public void success(int code, String message, String data) {
-//                errorCode = code;
-//                if (code == 0) {
-//                    if (!TextUtils.isEmpty(data)) {
-//                        routeGps = data;
-//                        mapHandler.sendEmptyMessage(DRAW_LINE);
-//                    }
-//                }
-//            }
-//        });
-//
-//    }
 
     /**
      * 添加出发打卡成功
@@ -505,8 +530,122 @@ public class RunMapActivity extends BaseActivity implements LocationSource, AMap
                     location.getLatitude(),location.getLongitude()),11,0,0));
             aMap.animateCamera(mCameraUpdate);
             isFirst=false;
-            CommonData.aMapLocation= (AMapLocation) location;
+//            CommonData.aMapLocation= (AMapLocation) location;
         }
+    }
+
+    /**获取环线线路的途径站点
+     * @param detail 当前任务
+     */
+    public void getBackupStations(final TaskDetail detail){
+        RequestEnvelope envelope=new RequestEnvelope();
+        RequestBody body=new RequestBody();
+        CircleLineRequest request=new CircleLineRequest();
+        Header header=new Header();
+        request.setLineId(String.valueOf(detail.getBusId()));
+        body.circleLineRequest=request;
+        envelope.header=header;
+        envelope.body=body;
+        RetrofitGenerator.getInstance().getApiStore().getData(envelope,"urn:TYWJAPPIntf-ITYWJAPP#huanxian")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseEnvelope>() {
+                    @Override
+                    public void accept(ResponseEnvelope responseEnvelope) throws Exception {
+                        List<LineStation> stations = new StationMapper().transform(responseEnvelope);
+                        if (stations.size() > 0) {
+                            LatLng start=new LatLng(Double.valueOf(stations.get(0).getLngLat().split(";")[1])-0.001000,
+                                    Double.valueOf(stations.get(0).getLngLat().split(";")[0])-0.001000);
+                            LatLng end=new LatLng(Double.valueOf(stations.get(stations.size()-1).getLngLat().split(";")[1]),
+                                    Double.valueOf(stations.get(stations.size()-1).getLngLat().split(";")[0]));
+                            addStartEndMarker(start, end);
+//                            if(stations.get(0).getId()==stations.get(stations.size()-1).getId()){
+//
+//                            }
+                            stations.remove(stations.size()-1);
+                            stations.remove(0);
+                            lineStations=stations;
+                            addMarker(stations);
+                            detail.setBackupStations(stations);
+                            StationAdapter adapter=new StationAdapter();
+                            listView.setAdapter(adapter);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if(throwable.getMessage()!=null){
+                            Log.e("ERROR",throwable.getMessage());
+                        }
+                    }
+                });
+
+    }
+
+    private class StationAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return lineStations.size();
+        }
+
+        @Override
+        public LineStation getItem(int position) {
+            return lineStations.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if(convertView==null){
+                holder=new ViewHolder();
+                convertView=View.inflate(RunMapActivity.this, R.layout.item_station, null);
+                holder.name=convertView.findViewById(R.id.station_name);
+                holder.sign=convertView.findViewById(R.id.sign);
+                convertView.setTag(holder);
+            }else {
+                holder= (ViewHolder) convertView.getTag();
+            }
+            final LineStation station=lineStations.get(position);
+            holder.name.setText(station.getName());
+            holder.sign.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos= (int) v.getTag();
+                    LineStation lineStation= getItem(pos);
+                    if(CommonData.aMapLocation==null){
+                        T.showShort("定位失败");
+                        return;
+                    }
+                    boolean in= GpsTool.checkPointInPolygon(
+                            CommonData.aMapLocation.getLongitude() + ";" + CommonData.aMapLocation.getLatitude(),
+                            lineStation.getLngLat(),
+                            lineStation.getAreaRadius());
+//                    if(in){
+//                        ScheduleTaskDaemon.sign(taskDetail.toHolderTrip(), Constants.STATUS_ARRIVE, null, null, Constants.MODE_MAN_SUCCESS);
+//                    }else {
+//                        XMDialog.showDialog(activity, "不在打卡范围内,确认打异常卡", new XMDialog.DialogResult() {
+//                            @Override
+//                            public void clickResult(int resultCode) {
+//                                if (resultCode == XMDialog.CLICK_SURE) {
+//                                    ScheduleTaskDaemon.sign(taskDetail.toHolderTrip(), Constants.STATUS_ARRIVE, null, null, Constants.MODE_MAN_ABNORMAL);
+//                                }
+//                            }
+//                        });
+//                    }
+                }
+            });
+            holder.sign.setTag(position);
+            return convertView;
+        }
+    }
+    class ViewHolder {
+        TextView name, sign;
     }
 }
 

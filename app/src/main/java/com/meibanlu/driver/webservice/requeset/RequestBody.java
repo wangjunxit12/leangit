@@ -8,8 +8,10 @@ public class RequestBody {
 
     @Element(name = "urn:ck_user",required = false)
     public LoginRequest loginRequest;
+
     @Element(name = "urn:car_sch ",required = false)
     public LineRequest lineRequest;
+
     @Element(name = "urn:line_station ",required = false)
     public StationRequest siteRequest;
     @Element(name = "urn:weizhiinsert ",required = false)
@@ -52,5 +54,16 @@ public class RequestBody {
     public GetOilRecordRequest getOilRecordRequest;
     @Element(name = "urn:getchengke",required = false)
     public PassengersRequest passengersRequest;
+
+    @Element(name = "urn:huanxian",required = false)
+    public CircleLineRequest circleLineRequest;
+
+    @Element(name = "urn:quxiaoupdatexiaofeima ",required = false)
+    public CancelCodeRequest cancelCodeRequest;
+    @Element(name = "urn:updatexiaofeima ",required = false)
+    public UpdateCodeRequest codeRequest;
+    @Element(name = "urn:xiaofeimazhuangtai",required = false)
+    public GetCodeStateRequest codeStateRequest;
+
 
 }

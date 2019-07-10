@@ -60,4 +60,14 @@ public class ResponseBody {
     @Element(name ="getchengkeResponse",required = false)
     public PassengersResponse passengersResponse;
 
+    @Element(name ="huanxianResponse",required = false)
+    public CircleLineResponse circleLineResponse;
+
+
+    @Element(name ="xiaofeimazhuangtaiResponse",required = false)
+    public CodeStateResponse codeStateResponse;
+    @Element(name ="quxiaoupdatexiaofeimaResponse",required = false)
+    public CancelCodeResponse cancelCodeResponse;
+    @Element(name ="updatexiaofeimaResponse",required = false)
+    public CodeResponse codeResponse;
 }

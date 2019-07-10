@@ -59,8 +59,11 @@ import com.meibanlu.driver.tool.UtilState;
 import com.meibanlu.driver.tool.UtilTool;
 import com.meibanlu.driver.tool.XMDialog;
 import com.meibanlu.driver.tool.XmPlayer;
+import com.meibanlu.driver.tool.web.DataCallBack;
+import com.meibanlu.driver.tool.web.WebService;
 import com.meibanlu.driver.view.loading.ShapeLoadingDialog;
 import com.meibanlu.driver.webservice.RetrofitGenerator;
+import com.meibanlu.driver.webservice.requeset.GetCodeStateRequest;
 import com.meibanlu.driver.webservice.requeset.GetVersionRequest;
 import com.meibanlu.driver.webservice.requeset.Header;
 import com.meibanlu.driver.webservice.requeset.RequestBody;
@@ -935,6 +938,115 @@ public class HomePageActivity extends BaseActivity implements
 
 
     }
+
+//    private void getState(final String code){
+//        RequestEnvelope envelope=new RequestEnvelope();
+//        RequestBody body=new RequestBody();
+//        final GetCodeStateRequest request=new GetCodeStateRequest();
+//        request.code=code;
+//        Header header=new Header();
+//        body.codeStateRequest=request;
+//        envelope.header=header;
+//        envelope.body=body;
+//        WebService.getInstance().getData(envelope, "urn:TYWJAPPIntf-ITYWJAPP#getjjqianbao", new DataCallBack() {
+//            @Override
+//            public void success(ResponseEnvelope result) {
+//                if(result.body!=null){
+//                    if(result.body.codeStateResponse.model.value!=null){
+//                        String data=result.body.codeStateResponse.model.value;
+//                        if(data.equalsIgnoreCase("未使用")){
+//                            updateCode(code);
+//                        }else if(data.equalsIgnoreCase("已兑换")){
+//                            cancel(code);
+//                        }else {
+//                            T.hideLoading();
+//                            T.showShort(data);
+//                        }
+//                    }
+//                }
+//
+//            }
+//            @Override
+//            public void error(String responseMessage) {
+//                T.hideLoading();
+//                T.showShort("扫码失败，请重新扫描");
+//            }
+//        });
+//    }
+//
+//    private void updateCode(String code){
+//        RequestEnvelope envelope=new RequestEnvelope();
+//        RequestBody body=new RequestBody();
+//        final UpdateCodeRequest request=new UpdateCodeRequest();
+//        request.setCode(code);
+//        request.setPhone(SharePreferenceUtil.getInstance().getString("phone"));
+//        Header header=new Header();
+//        body.codeRequest=request;
+//        envelope.header=header;
+//        envelope.body=body;
+//        WebService.getInstance().getData(envelope, "urn:TYWJAPPIntf-ITYWJAPP#getjjqianbao", new DataCallBack() {
+//            @Override
+//            public void success(ResponseEnvelope result) {
+//                T.hideLoading();
+//                if(result.body!=null){
+//                    if(result.body.codeResponse.model.value!=null){
+//                        String data=result.body.codeResponse.model.value;
+//                        if(data.equalsIgnoreCase("ok")){
+//                            T.showShort("兑换成功");
+//                            detail.setText("兑换成功");
+//                        }else {
+//                            T.showShort("兑换失败");
+//                            detail.setText("兑换失败");
+//                        }
+//                    }
+//                }
+//
+//            }
+//            @Override
+//            public void error(String responseMessage) {
+//                T.hideLoading();
+//                detail.setText("兑换失败");
+//                T.showShort("兑换失败，请重新扫描");
+//            }
+//        });
+//    }
+//
+//    private void cancel(String code){
+//        RequestEnvelope envelope=new RequestEnvelope();
+//        RequestBody body=new RequestBody();
+//        final CancelCodeRequest request=new CancelCodeRequest();
+//        request.setCode(code);
+//        request.setPhone(SharePreferenceUtil.getInstance().getString("phone"));
+//        Header header=new Header();
+//        body.cancelCodeRequest=request;
+//        envelope.header=header;
+//        envelope.body=body;
+//        WebService.getInstance().getData(envelope, "urn:TYWJAPPIntf-ITYWJAPP#getjjqianbao", new DataCallBack() {
+//            @Override
+//            public void success(ResponseEnvelope result) {
+//                T.hideLoading();
+//                if(result.body!=null){
+//                    if(result.body.cancelCodeResponse.model.value!=null){
+//                        String data=result.body.cancelCodeResponse.model.value;
+//                        if(data.equalsIgnoreCase("ok")){
+//                            T.showShort("取消兑换成功");
+//                            detail.setText("取消兑换成功");
+//                        }else {
+//                            T.showShort("取消兑换失败");
+//                            detail.setText("取消兑换失败");
+//                        }
+//                    }
+//                }
+//
+//            }
+//            @Override
+//            public void error(String responseMessage) {
+//                T.hideLoading();
+//                T.showShort("取消兑换失败");
+//                detail.setText("取消兑换失败");
+//            }
+//        });
+//    }
 
 
 }

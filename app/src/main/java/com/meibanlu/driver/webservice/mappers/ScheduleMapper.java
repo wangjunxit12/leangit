@@ -74,7 +74,11 @@ public class ScheduleMapper implements Mapper<List<TaskDetail>,ResponseEnvelope>
                                     backUpStation.setId(Integer.valueOf(texts[20]));
                                     departStation.setName(texts[21]);
                                     backUpStation.setName(texts[22]);
-
+                                    if(texts[31].equals("1")){
+                                        schedule.setCircle(true);
+                                    }else {
+                                        schedule.setCircle(false);
+                                    }
                                     if(texts[23].contains(";")){
                                         String [] textss=texts[23].split(";");
                                         departStation.setLongitude(Float.valueOf(textss[0]));

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import com.amap.api.location.AMapLocation;
 import com.meibanlu.driver.R;
 import com.meibanlu.driver.activity.HomePageActivity;
 import com.meibanlu.driver.activity.PhoneActivity;
+import com.meibanlu.driver.activity.ScanActivity;
 import com.meibanlu.driver.activity.WebActivity;
 import com.meibanlu.driver.bean.LineStation;
 import com.meibanlu.driver.bean.TaskDetail;
@@ -32,6 +34,7 @@ import com.meibanlu.driver.tool.T;
 import com.meibanlu.driver.tool.TimeTool;
 import com.meibanlu.driver.tool.UtilTool;
 import com.meibanlu.driver.tool.XMDialog;
+import com.meibanlu.driver.view.AutoNextLineLinearlayout;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -52,13 +55,14 @@ public class TaskListAdapter extends BaseAdapter {
     private HomePageActivity activity;
 
 
-    private   CompositeDisposable mCompositeDisposable;
+    private CompositeDisposable mCompositeDisposable;
 
+    private List<LineStation> stations;
     public TaskListAdapter(List<TaskDetail> taskList, HomePageActivity activity) {
         this.taskList = taskList;
         this.activity = activity;
         mCompositeDisposable=new CompositeDisposable();
-        operateRx();
+//        operateRx();
     }
 
     @Override
@@ -97,11 +101,25 @@ public class TaskListAdapter extends BaseAdapter {
             viewHolder.rlOut = (RelativeLayout) view.findViewById(R.id.rl_out);
             viewHolder.rlCurrent = (RelativeLayout) view.findViewById(R.id.rl_current);
             viewHolder.tvOtherStation = (TextView) view.findViewById(R.id.tv_other_station);
-            viewHolder.llOtherStation = (LinearLayout) view.findViewById(R.id.ll_other_station);
+            viewHolder.llOtherStation = view.findViewById(R.id.ll_other_station);
             viewHolder.tvItinerary = (TextView) view.findViewById(R.id.tv_itinerary);
             viewHolder.tvName = (TextView) view.findViewById(R.id.tv_name);
             viewHolder.tvRoll = (TextView) view.findViewById(R.id.tv_roll);
             viewHolder.distance = (TextView) view.findViewById(R.id.distance);
+            viewHolder.listView=view.findViewById(R.id.item_list);
+            viewHolder.scan=view.findViewById(R.id.scan);
+
+            viewHolder.scan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos= (int) v.getTag();
+                    TaskDetail detail=getItem(pos);
+                    Intent intent=new Intent();
+                    intent.putExtra("id",detail.getId());
+                    intent.setClass(activity, ScanActivity.class);
+                    activity.startActivity(intent);
+                }
+            });
 
             viewHolder.tvItinerary.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -163,6 +181,7 @@ public class TaskListAdapter extends BaseAdapter {
         }
         viewHolder.tvSetTrip.setTag(position);
         viewHolder.endSign.setTag(position);
+        viewHolder.scan.setTag(position);
         //定义一堆变量表示颜色
         int scheduleStationColor, personSeatColor, statusColor, setTextColor, rollColor;
         //首先全部赋值为 333
@@ -178,25 +197,6 @@ public class TaskListAdapter extends BaseAdapter {
 
         int setText = R.string.set_current;
 
-        //构建备用班次的String
-        StringBuilder backupStationsText = new StringBuilder();
-        List<LineStation> backupStations = item.getBackupStations();
-        if (backupStations != null && !backupStations.isEmpty()) {
-            T.log(backupStations.size() + "size");
-            for (LineStation station : backupStations) {
-                //如果太长，可以使用getShortName
-                //TODO size 变化
-                if (backupStationsText.indexOf(station.getName()) == -1) {
-                    backupStationsText.append(station.getName()).append(" ");
-                }
-            }
-            T.log(backupStationsText.toString());
-            viewHolder.tvOtherStation.setText(backupStationsText);
-            viewHolder.llOtherStation.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.tvOtherStation.setText("");
-            viewHolder.llOtherStation.setVisibility(View.GONE);
-        }
 
         //如果运行中，设置按钮不存在
         HolderTrip holderTrip = CommonData.holderTrip;
@@ -206,33 +206,6 @@ public class TaskListAdapter extends BaseAdapter {
         viewHolder.rlCurrent.setBackgroundResource(active ? R.drawable.shape_run_content : R.drawable.shape_white);
         viewHolder.rlOut.setBackgroundResource(active ? R.drawable.shape_run_title : R.drawable.shape_task);
         DecimalFormat df = new DecimalFormat("#.000");
-        if (active&&holderTrip.getTrip().getStatus()==Constants.STATUS_DEPART) {
-            if(holderTrip.getTrip().getArriveStation()!=null&&CommonData.aMapLocation!=null){
-                viewHolder.distance.setVisibility(View.VISIBLE);
-                LineStation station=holderTrip.getTrip().getArriveStation();
-                boolean  in = GpsTool.checkPointInPolygon(CommonData.aMapLocation.getLongitude() + ";" + CommonData.aMapLocation.getLatitude(), station.getLngLat(), station.getAreaRadius());
-                if (!in){
-                    Double dis=MapUtil.getDistance(CommonData.aMapLocation.getLatitude(),
-                            CommonData.aMapLocation.getLongitude(),station.getLngLat())-station.getAreaRadius();
-                    if(dis>2000){
-                        viewHolder.distance.setText("距离终点："+df.format(dis/1000)+"公里");
-                    }else {
-                        viewHolder.distance.setText("距离终点："+df.format(dis)+"米");
-                    }
-                }
-
-            }
-
-        }else {
-            if(holderTrip != null){
-                viewHolder.distance.setVisibility(View.INVISIBLE);
-            }
-        }
-        if(holderTrip != null){
-            viewHolder.llOtherStation.setVisibility(View.VISIBLE);
-        }else {
-            viewHolder.llOtherStation.setVisibility(View.GONE);
-        }
 
         //设置按钮的单独处理
         boolean showSetTrip = holderTrip == null;
@@ -357,6 +330,11 @@ public class TaskListAdapter extends BaseAdapter {
         } else {
             viewHolder.tvName.setText("无");
         }
+        if(item.isCircle()) {
+            viewHolder.listView.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.listView.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -376,21 +354,30 @@ public class TaskListAdapter extends BaseAdapter {
                 tvItinerary, tvName,endSign,distance;
         View circlePoint, stationLine;
         ImageView ivRoll;
-        LinearLayout llOtherStation;
+        RelativeLayout llOtherStation;
         RelativeLayout rlOut, rlCurrent;
+        Button scan;
+        LinearLayout listView;
     }
 
-    public  void  operateRx(){
-        mCompositeDisposable.add(RxBus.getInstance().tObservable(AMapLocation.class)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<AMapLocation>() {
-                    @Override
-                    public void accept(AMapLocation location) throws Exception {
-                        notifyDataSetChanged();
-                    }
-                })
-        );
+//    public  void  operateRx(){
+//        mCompositeDisposable.add(RxBus.getInstance().tObservable(AMapLocation.class)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<AMapLocation>() {
+//                    @Override
+//                    public void accept(AMapLocation location) throws Exception {
+//                        if(CommonData.holderTrip!=null){
+//                            if(CommonData.holderTrip.getTrip().getBackupStations()!=null){
+//                                stations=CommonData.holderTrip.getTrip().getBackupStations();
+//                            }
+//                        }
+//                        notifyDataSetChanged();
+//                    }
+//                })
+//        );
+//
+//    }
 
-    }
+
 }

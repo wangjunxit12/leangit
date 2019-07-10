@@ -149,6 +149,6 @@
     <string name="soft_update_later">以后再说</string>
     <string name="soft_updating">正在更新</string>
     <string name="download">downloadId</string>
-
+    <string name="circle_line_tips">当前班次为环线线路，该线路每个途径站都需打卡，请点击进入线路详情打卡。</string>
 </resources>
 

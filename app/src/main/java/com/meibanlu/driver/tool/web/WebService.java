@@ -88,25 +88,6 @@ public class WebService {
         return urlPrefix + url;
     }
 
-//    /**
-//     * 发送请求
-//     *
-//     * @param method       方法： POST或者GET
-//     * @param webInterface 接口枚举
-//     * @param param        参数（Post加入到上传代码中，Get 使用？拼接到后面）
-//     * @param callBack     回调函数
-//     * @param paramStrings url中的变量替换参数
-//     */
-//    public static void doRequest(final int method, final WebInterface webInterface,
-//                                 final Map<String, Object> param, final CallBack callBack,
-//                                 final String... paramStrings) {
-//        webServicePool.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                executeRequestSync(method, webInterface, param, callBack, paramStrings);
-//            }
-//        });
-//    }
 
     public  void getData(RequestEnvelope envelope,String soap,final DataCallBack callBack){
             if (!NetManager.connect()) {

@@ -2,7 +2,9 @@ package com.meibanlu.driver.tool;
 
 import android.location.Location;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.amap.api.location.AMapLocation;
 import com.meibanlu.driver.OnPollingListener;
 import com.meibanlu.driver.R;
 import com.meibanlu.driver.activity.HomePageActivity;
@@ -17,6 +19,9 @@ import com.meibanlu.driver.tool.web.CallBack;
 import com.meibanlu.driver.tool.web.DataCallBack;
 import com.meibanlu.driver.tool.web.SimpleCallBack;
 import com.meibanlu.driver.tool.web.WebService;
+import com.meibanlu.driver.webservice.RetrofitGenerator;
+import com.meibanlu.driver.webservice.mappers.StationMapper;
+import com.meibanlu.driver.webservice.requeset.CircleLineRequest;
 import com.meibanlu.driver.webservice.requeset.Header;
 import com.meibanlu.driver.webservice.requeset.RequestBody;
 import com.meibanlu.driver.webservice.requeset.RequestEnvelope;
@@ -31,6 +36,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 启动线程处理gps和司机打卡
@@ -67,6 +77,13 @@ public class ScheduleTaskDaemon implements OnPollingListener{
             DriverLocation.getInstance().startBackGroundLocation();
         }else {
             DriverLocation.getInstance().stop();
+        }
+        if(CommonData.holderTrip!=null){
+            if(CommonData.holderTrip.getTrip().isCircle()){
+                if(CommonData.holderTrip.getTrip().getBackupStations()==null||CommonData.holderTrip.getTrip().getBackupStations().size()==0){
+                       UtilTool.getInstance().getBackupStations(CommonData.holderTrip.getTrip());
+                }
+            }
         }
         final PositionVo judgePosition = CommonData.judgePosition;
         //首先处理本地是否有未上传的打卡
@@ -376,7 +393,11 @@ public class ScheduleTaskDaemon implements OnPollingListener{
         T.log("driveEndSign");
         boolean in = false;
         if(CommonData.aMapLocation==null) return false;
+        LineStation startStation = holderTrip.getTrip().getDepartStation();
         LineStation arriveStation = holderTrip.getTrip().getArriveStation();
+        if(holderTrip.getTrip().isCircle()){
+            return false;
+        }
         List<LineStation> stations = holderTrip.getTrip().getBackupStations();
         if (stations == null) {
             stations = new ArrayList<>();
@@ -514,9 +535,6 @@ public class ScheduleTaskDaemon implements OnPollingListener{
                 bean.setTime(System.currentTimeMillis());
                 boolean isExist = UtilTool.getDbManager().tripFailExist(bean.getId());
                 if (isExist){
-                    T.log("isExist:  "+isExist);
-                    T.log("signType:  "+signType);
-
                     if (signType == Constants.STATUS_DEPART) {
                         //出发打卡
                         if(holderTrip!=null){
@@ -568,6 +586,8 @@ public class ScheduleTaskDaemon implements OnPollingListener{
 //            WebService.doRequest(WebService.POST, WebInterface.DRIVER_SIGN, param, callBack);
         }
     }
+
+
 
     /**
      * 刷新打卡标记
@@ -635,5 +655,7 @@ public class ScheduleTaskDaemon implements OnPollingListener{
             }
         }
     }
+
+
 
 }

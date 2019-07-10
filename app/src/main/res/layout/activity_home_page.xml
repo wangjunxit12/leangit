@@ -126,14 +126,14 @@
 
         <TextView
             android:id="@+id/tv_save"
-            android:layout_width="@dimen/dp110"
-            android:layout_height="@dimen/dp110"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_centerInParent="true"
             android:background="@drawable/shape_start_sign"
-            android:gravity="center"
-            android:text="@string/start"
             android:textColor="@color/text_color_333333"
-            android:textSize="@dimen/dp28" />
+            android:text="省电模式"
+            android:gravity="center"
+            android:textSize="22sp" />
 
         <RelativeLayout
             android:id="@+id/rl_sign"
