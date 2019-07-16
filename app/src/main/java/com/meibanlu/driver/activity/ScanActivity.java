@@ -100,7 +100,7 @@ public class ScanActivity extends BaseActivity {
             //将扫描出的信息显示出来
             if(scanResult!=null){
                 message.setText("消费码："+scanResult);
-                getState(scanResult);
+                updateCode(scanResult);
                 T.showLoading();
             }else {
                 T.showShort("扫码失败，请重新扫描");
@@ -130,7 +130,7 @@ public class ScanActivity extends BaseActivity {
         body.codeStateRequest=request;
         envelope.header=header;
         envelope.body=body;
-        WebService.getInstance().getData(envelope, "urn:TYWJAPPIntf-ITYWJAPP#getjjqianbao", new DataCallBack() {
+        WebService.getInstance().getData(envelope, "urn:TYWJAPPIntf-ITYWJAPP#xiaofeimazhuangtai", new DataCallBack() {
             @Override
             public void success(ResponseEnvelope result) {
                 if(result.body!=null){
@@ -168,7 +168,7 @@ public class ScanActivity extends BaseActivity {
         body.codeRequest=request;
         envelope.header=header;
         envelope.body=body;
-        WebService.getInstance().getData(envelope, "urn:TYWJAPPIntf-ITYWJAPP#getjjqianbao", new DataCallBack() {
+        WebService.getInstance().getData(envelope, "urn:TYWJAPPIntf-ITYWJAPP#updatexiaofeima", new DataCallBack() {
             @Override
             public void success(ResponseEnvelope result) {
                 T.hideLoading();
@@ -178,9 +178,12 @@ public class ScanActivity extends BaseActivity {
                         if(data.equalsIgnoreCase("ok")){
                             XmPlayer.getInstance().playTTS("验票成功");
                             detail.setText("验票成功");
-                        }else {
+                        }else if (data.equalsIgnoreCase("已经检票")){
+                            XmPlayer.getInstance().playTTS("已经检票");
+                            detail.setText("已经检票");
+                        } else {
                             XmPlayer.getInstance().playTTS("验票失败");
-                            detail.setText("验票失败");
+                            detail.setText(data);
                         }
                     }
                 }
@@ -206,7 +209,7 @@ public class ScanActivity extends BaseActivity {
         body.cancelCodeRequest=request;
         envelope.header=header;
         envelope.body=body;
-        WebService.getInstance().getData(envelope, "urn:TYWJAPPIntf-ITYWJAPP#getjjqianbao", new DataCallBack() {
+        WebService.getInstance().getData(envelope, "urn:TYWJAPPIntf-ITYWJAPP#quxiaoupdatexiaofeima", new DataCallBack() {
             @Override
             public void success(ResponseEnvelope result) {
                 T.hideLoading();
